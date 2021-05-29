@@ -1,4 +1,4 @@
-# scouts_camp_lider
+# scout_camp_lider
 
 A new Flutter project.
 
