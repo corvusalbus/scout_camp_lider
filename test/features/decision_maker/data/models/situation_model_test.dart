@@ -21,7 +21,7 @@ void main() {
   group(
     'fromJson',
     () {
-      test('should return a valid model with standart situation input', () {
+      test('should return a valid model with standard situation input', () {
         //arrange
         final Map<String, dynamic> jsonMap =
             json.decode(fixture('situation.json'));

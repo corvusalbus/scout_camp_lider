@@ -40,7 +40,7 @@ void main() {
     when(mockSituationRepository.getFirstSituation())
         .thenAnswer((_) async => tSituation);
 
-    final result = await usecase(Params());
+    final result = await usecase(NonParams());
 
     expect(result, tSituation);
 

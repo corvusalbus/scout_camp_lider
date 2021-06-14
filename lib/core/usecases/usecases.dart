@@ -4,7 +4,7 @@ abstract class UseCase<Type, Params> {
   Future<Type> call(Params params);
 }
 
-class Params extends Equatable {
+class NonParams extends Equatable {
   @override
   List<Object> get props => [];
 }

@@ -8,7 +8,8 @@ import 'package:mockito/mockito.dart';
 
 class MockSituationRepository extends Mock implements SituationRepository {
   @override
-  Future<Situation> getNextSituation() async => super.noSuchMethod(
+  Future<Situation> getNextSituation({int? currentSituation}) async =>
+      super.noSuchMethod(
         Invocation.getter(#getNextSituation),
         returnValue: Situation(
             description: '',
@@ -27,7 +28,7 @@ void main() {
     mockSituationRepository = new MockSituationRepository();
     usecase = new GetNextSituation(mockSituationRepository);
   });
-
+  final int tCurrentSituation = 0;
   final tSituation = Situation(
       description: 'Choose camp location',
       option1: 'In forest',
@@ -37,14 +38,16 @@ void main() {
   test('should get Situation from repository', () async {
     //"On the fly" implementation of the Repository using the Mockito package.
     // When getNextSituation is called, always answer with
-    when(mockSituationRepository.getNextSituation())
+    when(mockSituationRepository.getNextSituation(
+            currentSituation: tCurrentSituation))
         .thenAnswer((_) async => tSituation);
 
-    final result = await usecase(Params());
+    final result = await usecase(Params(currentSituation: tCurrentSituation));
 
     expect(result, tSituation);
 
-    verify(mockSituationRepository.getNextSituation());
+    verify(mockSituationRepository.getNextSituation(
+        currentSituation: tCurrentSituation));
 
     verifyNoMoreInteractions(mockSituationRepository);
   });

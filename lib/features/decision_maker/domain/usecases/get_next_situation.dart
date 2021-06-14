@@ -12,6 +12,15 @@ class GetNextSituation implements UseCase<Situation, Params> {
   GetNextSituation(this.repository);
 
   Future<Situation> call(Params params) async {
-    return await repository.getNextSituation();
+    return await repository.getNextSituation(
+        currentSituation: params.currentSituation);
   }
+}
+
+class Params extends Equatable {
+  final int currentSituation;
+  Params({required this.currentSituation}) : super();
+
+  @override
+  List<Object?> get props => [currentSituation];
 }
