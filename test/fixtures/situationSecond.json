@@ -1,0 +1,7 @@
+{
+    "description":"2 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce congue nulla ut orci mollis, a rutrum lorem condimentum. Maecenas posuere dolor cursus quam varius rhoncus.",
+    "option1":"Option 1 Suspendisse imperdiet sapien quis mi scelerisque",
+    "option2":"Option 2 Mauris interdum viverra lacinia.",
+    "consequencesOfOption1":[0, -4, 2, 1],    
+    "consequencesOfOption2":[10, 2, 3, -4]
+}

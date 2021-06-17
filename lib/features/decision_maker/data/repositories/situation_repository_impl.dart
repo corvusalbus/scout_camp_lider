@@ -1,4 +1,3 @@
-import 'package:scout_camp_lider/core/error/exteption.dart';
 import 'package:scout_camp_lider/features/decision_maker/data/datasources/situation_local_data_source.dart';
 import 'package:scout_camp_lider/features/decision_maker/domain/entities/situation.dart';
 import 'package:scout_camp_lider/features/decision_maker/domain/repositories/situation_repository.dart';

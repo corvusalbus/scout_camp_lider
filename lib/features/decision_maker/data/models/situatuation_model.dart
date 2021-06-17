@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:scout_camp_lider/features/decision_maker/domain/entities/situation.dart';
 import 'package:meta/meta.dart';
 
