@@ -1,5 +1,4 @@
-import 'package:scout_camp_lider/features/decision_maker/domain/entities/situation.dart';
-import 'package:meta/meta.dart';
+import '../../domain/entities/situation.dart';
 
 class SituationModel extends Situation {
   SituationModel(

@@ -20,12 +20,13 @@ class MockFile extends Mock implements File {
 void main() {
   MockFile mockFile = MockFile();
   SituationLocalDataSourceImpl dataSource =
-      SituationLocalDataSourceImpl(file: mockFile);
+      SituationLocalDataSourceImpl(mockFile);
 
-  setUp(() {
-    mockFile = MockFile();
-    dataSource = SituationLocalDataSourceImpl(file: mockFile);
-  });
+  // File file = File('situation.json');
+  // setUp(() {
+  //   mockFile = MockFile();
+  //   dataSource = SituationLocalDataSourceImpl(mockFile);
+  // });
 
   group('getFirstSituation', () {
     final tSituationModel =

@@ -1,7 +1,7 @@
+import 'package:scout_camp_lider/core/usecases/usecases.dart';
 import 'package:scout_camp_lider/features/decision_maker/domain/repositories/situation_repository.dart';
 import 'package:scout_camp_lider/features/decision_maker/domain/entities/situation.dart';
 import 'package:scout_camp_lider/features/decision_maker/domain/usecases/get_next_situation.dart';
-import 'package:scout_camp_lider/core/usecases/usecases.dart';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';

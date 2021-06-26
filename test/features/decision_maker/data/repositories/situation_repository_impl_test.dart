@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:scout_camp_lider/core/error/exteption.dart';
@@ -7,8 +5,6 @@ import 'package:scout_camp_lider/features/decision_maker/data/datasources/situat
 import 'package:scout_camp_lider/features/decision_maker/data/models/situatuation_model.dart';
 import 'package:scout_camp_lider/features/decision_maker/data/repositories/situation_repository_impl.dart';
 import 'package:scout_camp_lider/features/decision_maker/domain/entities/situation.dart';
-
-import '../../domain/usecases/get_first_situation_test.dart';
 
 class MockLocalDataSource extends Mock implements SituationLocalDataSource {
   @override

@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:scout_camp_lider/core/error/exteption.dart';
-import 'package:scout_camp_lider/features/decision_maker/data/models/situatuation_model.dart';
+
+import '../../../../core/error/exteption.dart';
+import '../models/situatuation_model.dart';
 
 abstract class SituationLocalDataSource {
   ///Get next situations from situations.json
@@ -16,9 +17,9 @@ abstract class SituationLocalDataSource {
 }
 
 class SituationLocalDataSourceImpl implements SituationLocalDataSource {
-  final File file;
+  final File _file; // = File('lib\assets\situations.json');
 
-  SituationLocalDataSourceImpl({required this.file});
+  SituationLocalDataSourceImpl(this._file);
 
   @override
   Future<SituationModel> getFirstSituation() async {
@@ -29,7 +30,7 @@ class SituationLocalDataSourceImpl implements SituationLocalDataSource {
   Future<SituationModel> getNextSituation({int? currentSituation}) async {
     final String situationsJson =
         //File('lib/assets/situations.json').readAsStringSync();
-        file.readAsStringSync();
+        _file.readAsStringSync();
     if (!(situationsJson == '')) {
       try {
         final Iterable list = jsonDecode(situationsJson);
