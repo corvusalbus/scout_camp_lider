@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:scout_camp_lider/features/decision_maker/domain/entities/situation.dart';
 import 'package:scout_camp_lider/features/decision_maker/presentation/bloc/decision_maker_bloc.dart';
 
 import '../../../../injection_container.dart';
@@ -59,15 +61,11 @@ class DecisionMakerPage extends StatelessWidget {
                     BlocBuilder<DecisionMakerBloc, DecisionMakerState>(
                       builder: (context, state) {
                         if (state is SituationLoadSuccess) {
-                          return ElevatedButton(
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateProperty.all<Color>(
-                                          Colors.lime)),
-                              onPressed: () =>
-                                  BlocProvider.of<DecisionMakerBloc>(context)
-                                      .add(OptionChosened(7, 1)),
-                              child: Text('Option1'));
+                          return OptionsButton(
+                            nextStory: 3,
+                            option: 1,
+                            situation: state.situation,
+                          );
                         } else if (state is DecisionMakerInitial) {
                           return ElevatedButton(
                               style: ButtonStyle(
@@ -77,7 +75,12 @@ class DecisionMakerPage extends StatelessWidget {
                               onPressed: () =>
                                   BlocProvider.of<DecisionMakerBloc>(context)
                                       .add(OptionChosened(1, 1)),
-                              child: Text('Zacznij Obóz'));
+                              child: Container(
+                                width:
+                                    MediaQuery.of(context).size.width * 5 / 12,
+                                child: Text(
+                                    'Zaczynamy obóz fdnafjlkd fdhaf fdlk fklgj klfd jgkldfs fdgklgfdjkldfgjofdgjiotejrmvioerj dnvierjgireg fh gioer jgklgjie j grilerji jgjr gi j jrei jkljgroj'),
+                              ));
                         } else {
                           return Container(
                             child: null,
@@ -85,14 +88,17 @@ class DecisionMakerPage extends StatelessWidget {
                         }
                       },
                     ),
-                    ElevatedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all<Color>(Colors.amber)),
-                        onPressed: () =>
-                            BlocProvider.of<DecisionMakerBloc>(context)
-                                .add(OptionChosened(7, 2)),
-                        child: Text('Option2')),
+                    BlocBuilder<DecisionMakerBloc, DecisionMakerState>(
+                      builder: (context, state) {
+                        if (state is SituationLoadSuccess)
+                          return OptionsButton(
+                              nextStory: 3,
+                              option: 2,
+                              situation: state.situation);
+
+                        return Container(child: null);
+                      },
+                    )
                   ],
                 )
               ],
@@ -101,5 +107,33 @@ class DecisionMakerPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class OptionsButton extends StatelessWidget {
+  final Situation situation;
+  final int option;
+  final int nextStory;
+  const OptionsButton(
+      {required this.situation, required this.option, required this.nextStory});
+
+  @override
+  Widget build(BuildContext context) {
+    String optionText = '';
+    if (option == 1) {
+      optionText = situation.option1;
+    } else
+      optionText = situation.option2;
+    return ElevatedButton(
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(Colors.lime)),
+        onPressed: () => BlocProvider.of<DecisionMakerBloc>(context)
+            .add(OptionChosened(nextStory, option)),
+        child: Container(
+          width: MediaQuery.of(context).size.width * 5 / 12,
+          child: Text(
+            optionText,
+          ),
+        ));
   }
 }

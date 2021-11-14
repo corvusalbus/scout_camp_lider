@@ -17,9 +17,9 @@ abstract class SituationLocalDataSource {
 }
 
 class SituationLocalDataSourceImpl implements SituationLocalDataSource {
-  final File _file; // = File('lib\assets\situations.json');
+  final String _situationsJson; // = File('lib\assets\situations.json');
 
-  SituationLocalDataSourceImpl(this._file);
+  SituationLocalDataSourceImpl(this._situationsJson);
 
   @override
   Future<SituationModel> getFirstSituation() async {
@@ -28,12 +28,9 @@ class SituationLocalDataSourceImpl implements SituationLocalDataSource {
 
   @override
   Future<SituationModel> getNextSituation({int? currentSituation}) async {
-    final String situationsJson =
-        //File('lib/assets/situations.json').readAsStringSync();
-        _file.readAsStringSync();
-    if (!(situationsJson == '')) {
+    if (!(_situationsJson == '')) {
       try {
-        final Iterable list = jsonDecode(situationsJson);
+        final Iterable list = jsonDecode(_situationsJson);
 
         final List<SituationModel> situationList = List<SituationModel>.from(
             list.map((model) => SituationModel.fromJson(model)));

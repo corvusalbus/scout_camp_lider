@@ -9,18 +9,10 @@ import 'package:scout_camp_lider/features/decision_maker/data/models/situatuatio
 
 import '../../../../fixtures/fixture_reader.dart';
 
-class MockFile extends Mock implements File {
-  @override
-  String readAsStringSync({Encoding encoding = utf8}) => super.noSuchMethod(
-        Invocation.getter(#readAsStringSync),
-        returnValue: '',
-      );
-}
-
 void main() {
-  MockFile mockFile = MockFile();
+  final String tSituationsJson = fixture('situations.json');
   SituationLocalDataSourceImpl dataSource =
-      SituationLocalDataSourceImpl(mockFile);
+      SituationLocalDataSourceImpl(tSituationsJson);
 
   // File file = File('situation.json');
   // setUp(() {
@@ -33,17 +25,17 @@ void main() {
         SituationModel.fromJson(jsonDecode(fixture('situation.json')));
 
     test('should return first Situation from file ', () async {
-      when(mockFile.readAsStringSync()).thenReturn(fixture('situations.json'));
+      //when(mockFile.readAsStringSync()).thenReturn(fixture('situations.json'));
 
       final result = await dataSource.getFirstSituation();
 
-      verify(mockFile.readAsStringSync());
+      //verify(mockFile.readAsStringSync());
       expect(result, tSituationModel);
     });
 
     test('should throw a FileException when there is empty situation file',
         () async {
-      when(mockFile.readAsStringSync()).thenReturn('');
+      dataSource = SituationLocalDataSourceImpl('');
 
       final call = dataSource.getFirstSituation;
 
@@ -53,7 +45,7 @@ void main() {
     test(
         'should throw a FileException when situations file is in incorrect format',
         () async {
-      when(mockFile.readAsStringSync()).thenReturn('situation:"none"]');
+      dataSource = SituationLocalDataSourceImpl('situation:"none"]');
 
       final call = dataSource.getFirstSituation;
 
@@ -62,7 +54,7 @@ void main() {
     test(
         'should throw a FileException when situations file is in incorrect format',
         () async {
-      when(mockFile.readAsStringSync()).thenReturn('[{"situation":"none"}]');
+      dataSource = SituationLocalDataSourceImpl('[{"situation":"none"}]');
 
       final call = dataSource.getFirstSituation;
 
@@ -75,26 +67,24 @@ void main() {
         SituationModel.fromJson(jsonDecode(fixture('situationSecond.json')));
 
     test('should return second Situation from file ', () async {
-      when(mockFile.readAsStringSync()).thenReturn(fixture('situations.json'));
+      dataSource = SituationLocalDataSourceImpl(fixture('situations.json'));
 
       final result = await dataSource.getNextSituation(currentSituation: 1);
 
-      verify(mockFile.readAsStringSync());
       expect(result, tSituationModel);
     });
 
     test('should return second Situation from file ', () async {
-      when(mockFile.readAsStringSync()).thenReturn(fixture('situations.json'));
+      dataSource = SituationLocalDataSourceImpl(fixture('situations.json'));
 
       final result = await dataSource.getNextSituation(currentSituation: 7);
 
-      verify(mockFile.readAsStringSync());
       expect(result, tSituationModel);
     });
 
     test('should throw a FileException when there is empty situation file',
         () async {
-      when(mockFile.readAsStringSync()).thenReturn('');
+      dataSource = SituationLocalDataSourceImpl('');
 
       final call = dataSource.getNextSituation;
 
@@ -105,7 +95,7 @@ void main() {
     test(
         'should throw a FileException when situations file is in incorrect format',
         () async {
-      when(mockFile.readAsStringSync()).thenReturn('situation:"none"]');
+      dataSource = SituationLocalDataSourceImpl('situation:"none"]');
 
       final call = dataSource.getNextSituation;
 
@@ -115,7 +105,7 @@ void main() {
     test(
         'should throw a FileException when situations file is in incorrect format',
         () async {
-      when(mockFile.readAsStringSync()).thenReturn('[{"situation":"none"}]');
+      dataSource = SituationLocalDataSourceImpl('[{"situation":"none"}]');
 
       final call = dataSource.getNextSituation;
 
